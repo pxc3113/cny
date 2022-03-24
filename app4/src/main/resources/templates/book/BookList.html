@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table border="1">
+        <thead>
+            <tr>
+                <td>id</td>
+                <td>名称</td>
+                <td>价格</td>
+                <td>类型</td>
+                <td>介绍</td>
+                <td>是否上架</td>
+                <td>操作</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="book:${BookList}">
+                <td th:text="${book.id}"></td>
+                <td th:text="${book.name}"></td>
+                <td th:text="${book.price}"></td>
+                <td th:text="${book.bookType.name}"></td>
+                <td th:text="${book.show}"></td>
+                <div th:switch="${book.up}">
+                    <td th:case="1" th:text="是"></td>
+                    <td th:case="0" th:text="否"></td>
+                </div>
+                <div th:switch="${book.up}">
+                    <td th:case="0"><a th:href="@{/book/toggle(id=${book.id})}" th:text="上架"></a></td>
+                    <td th:case="1"><a th:href="@{/book/toggle(id=${book.id})}" th:text="下架"></a></td>
+                </div>
+            </tr>
+        </tbody>
+    </table>
+    <a th:href="@{/book(page=${previousPage},size=${size})}"
+        th:text="previous"></a>
+    <div th:text="${currentPage}"></div>
+    <a th:href="@{/book(page=${nextPage},size=${size})}"
+        th:text="next"></a>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+</head>
+<body>
+    <form id="form" th:object="${user}">
+        用户名：<input type="text" th:field="*{name}">
+        密码：<input type="password" th:field="*{password}">
+        <input type="button" onclick="login()" value="登陆">
+    </form>
+</body>
+<script type="text/javascript">
+    function login(){
+        $.ajax({
+            url:"/user/login",
+            type:"post",
+            data:$("#form").serialize(),
+            dataType:"json",
+            success:function(data){
+                location.href="/user"
+            }
+        })
+    }
+</script>
+</html>

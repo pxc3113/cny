@@ -1,0 +1,49 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <body>
+        <form method="post" th:action="@{/prize/}" th:object="${prizeSearchForm}">
+            名称：<input type="text" th:field="*{name}">
+            类型：<select th:field="*{type}">
+                <option th:value="1" th:text="虚拟"></option>
+                <option th:value="2" th:text="实体"></option>
+            </select>
+            数量：<input type="text" th:field="*{stockFrom}">--<input type="text" th:field="*{stockTo}">
+            <input type="submit" value="查询">
+        </form>
+        <table border="1">
+            <thead>
+                <tr>
+                    <td>id</td>
+                    <td>图</td>
+                    <td>奖品名称</td>
+                    <td>奖品类型</td>
+                    <td>奖品价格</td>
+                    <td>数量</td>
+                    <td>操作</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="prize:${prizeList}">
+                    <td th:text="${prize.id}"></td>
+                    <td th:text="${prize.img}"></td>
+                    <td th:text="${prize.name}"></td>
+                    <div th:switch="${prize.type}">
+                        <td th:case="1" th:text="虚拟"></td>
+                        <td th:case="2" th:text="实体"></td>
+                    </div>
+                    <td th:text="${prize.price}"></td>
+                    <td th:text="${prize.stock}"></td>
+                    <td>
+                        <a th:href="@{/prize/claim(id=${prize.id})}">领取</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <a th:href="@{/prize(page=${previousPage},size=${size})}"
+            th:text="previous"></a>
+        <div th:text="${currentPage}"></div>
+        <a th:href="@{/prize(page=${nextPage},size=${size})}"
+            th:text="next"></a>
+    </body>
+</html>

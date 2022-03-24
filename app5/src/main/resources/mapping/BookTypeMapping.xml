@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ytc.app5.dao.BookTypeDao" >
+  <resultMap id="BaseResultMap" type="com.ytc.app5.model.BookType" >
+    <id column="tid" property="id" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+  </resultMap>
+  <select id="get" resultMap="BaseResultMap">
+    select * from v_book_type;
+  </select>
+</mapper>

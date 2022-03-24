@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+       
+    </head>
+
+    <body>
+        <form method="post" th:action="'/purchase/update/'+${purchase.id}" th:object="${purchase}">
+            采购日期：<input type="date" th:field="*{purchaseDate}" value="${purchase.purchaseDate}" ><br>
+            供应商：<input type="text" th:field="*{provider}" value="${purchase.provider}" ><br>
+            总额：<input type="text" th:field="*{purchaseAmount}" value="${purchase.purchaseAmount}"><br>
+            登记情况：<input type="text" th:field="*{gradeCase}" value="${purchase.gradeCase}"><br>
+            状态：
+            <select th:field="*{status.id}">
+                <option value="1">审核中</option>
+                <option value="2">审核通过</option>
+            </select>
+            <input type="submit" value="提交">
+        </form>
+    </body>
+</html>

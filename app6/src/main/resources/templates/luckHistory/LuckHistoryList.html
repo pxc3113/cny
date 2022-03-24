@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table border="1">
+        <thead>
+            <tr>
+                <td>id</td>
+                <td>姓名</td>
+                <td>奖品名称</td>
+                <td>奖品类型</td>
+                <td>奖品价格</td>
+                <td>领取时间</td>
+                <td>操作</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="luckHistory:${luckHistoryList}">
+                <td th:text="${luckHistory.id}"></td>
+                <td th:text="${luckHistory.name}"></td>
+                <td th:text="${luckHistory.prize.name}"></td>
+                <td th:text="${luckHistory.prize.type}"></td>
+                <td th:text="${luckHistory.prize.price}"></td>
+                <td th:text="${luckHistory.createTime}"></td>
+                <td>
+                    <a th:href="@{/luckHistory/delete(id=${luckHistory.id})}">删除</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <a th:href="@{/luckHistory(page=${previousPage},size=${size})}"
+        th:text="previous"></a>
+    <div th:text="${currentPage}"></div>
+    <a th:href="@{/luckHistory(page=${nextPage},size=${size})}"
+        th:text="next"></a>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ytc.app5.dao.BookDao" >
+  <resultMap id="BaseResultMap" type="com.ytc.app5.model.Book" >
+    <id column="bid" property="id" jdbcType="BIGINT" />
+    <result column="add_time" property="addTime" jdbcType="VARCHAR" />
+    <result column="author" property="author" jdbcType="VARCHAR" />
+    <result column="cover_photo" property="coverPhoto" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="BIGINT" />
+    <result column="status" property="status" jdbcType="BIGINT" />
+    <association property="press" javaType="com.ytc.app5.model.Press">
+      <id column="pid" property="id"/>
+      <result column="name" property="name"/>
+    </association>
+    <association property="bookType" javaType="com.ytc.app5.model.BookType">
+      <id column="tid" property="id"/>
+      <result column="name" property="name"/>
+    </association>
+  </resultMap>
+  <select id="get" resultMap="BaseResultMap">
+    select * from v_book b left join v_book_type t on b.v_book_type_id = t.tid left join press p on b.press_id = p.pid limit #{page},#{size};
+  </select>
+  <select id="add">
+    insert into v_book (add_time,author,cover_photo,name,price,status,press_id,v_book_type_id) values (#{addTime},#{author},#{coverPhoto},#{name},#{price},#{status},#{press.id},#{bookType.id}); 
+  </select>
+  <update id="up">
+    update v_book set status = 1 where bid = #{id}
+  </update>
+  <update id="down">
+    update v_book set status = 2 where bid = #{id}
+  </update>
+</mapper>

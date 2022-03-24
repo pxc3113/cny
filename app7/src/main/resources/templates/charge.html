@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+       
+    </head>
+
+    <body>
+        <form method="post" th:action="@{/viiClass/charge/{eid},{cid}(eid=${chargeDto.eid},cid=${chargeDto.cid})}" th:object="${chargeDto}" onSubmit="check(${viiClass.credit},${chargeDto.delta})">
+            班级：<td th:text="${viiClass.name}"></td><br>
+            充值电量：<input type="text" th:field="*{delta}">
+            <select th:field="*{unit}">
+                <option value="0">瓦</option>
+                <option value="1">千瓦</option>
+            </select>
+            <input type="submit" value="充值">
+        </form>
+    </body>
+    <script type="text/javascript">
+        function check(credit,delta){
+            if (delta*2 > credit){
+                alert("insufficient credit")
+                return false;
+            } else {
+                return true;
+            }
+        }
+    </script>
+</html>

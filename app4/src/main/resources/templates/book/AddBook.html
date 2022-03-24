@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+    <body>
+        <form th:action="@{/book/add}" th:object="${book}" method="post">
+            <table>
+                <tr>名称：<input type="text" th:field="*{name}"></tr><br>
+                <tr>价格：<input type="text" th:field="*{price}"></tr><br>
+                <tr>类型:
+                    <select th:field="*{bookType.id}">
+                        <option th:text="${bookType.name}" th:value="${bookType.id}" th:each="bookType:${bookTypeList}"></option>
+                    </select>
+                </tr>
+                <tr>介绍：<input type="text" th:field="*{price}"></tr><br>
+                <tr>是否上架：
+                    <input type="radio" value="1" th:field="*{up}">是
+                    <input type="radio" value="0" th:field="*{up}">否
+                </tr>
+            </table>
+            <input type="submit" value="新增"/>
+        </form>
+    </body>
+</html>

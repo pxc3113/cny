@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ytc.app6.dao.LuckHistoryDao" >
+  <resultMap id="BaseResultMap" type="com.ytc.app6.model.LuckHistory" >
+    <id column="lid" property="id" jdbcType="BIGINT" />
+    <result column="create_time" property="createTime" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="DATE" />
+    <association property="prize" javaType="com.ytc.app6.model.Prize">
+      <id column="pid" property="id"/>
+      <result column="img" property="img"/>
+      <result column="name" property="name"/>
+      <result column="price" property="price"/>
+      <result column="stock" property="stock"/>
+      <result column="type" property="type"/>
+    </association>
+  </resultMap>
+  <select id="get" resultMap="BaseResultMap">
+    select * from luck_history l left join prize p on l.prize_id = p.pid limit #{page},#{size};
+  </select>
+  <delete id = "delete">
+    delete from luck_history where lid = #{id}
+  </delete>
+  <insert id="claim">
+    insert into luck_history (create_time,name,prize_id) values (curdate(),'x',#{pid});
+  </insert>
+</mapper>

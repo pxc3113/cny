@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table border="1">
+        <thead>
+            <tr>
+                <td>id</td>
+                <td>名称</td>
+                <td>作者</td>
+                <td>封面</td>
+                <td>价格</td>
+                <td>类型</td>
+                <td>出版社</td>
+                <td>状态</td>
+                <td>出版时间</td>
+                <td>操作</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="book:${BookList}">
+                <td th:text="${book.id}"></td>
+                <td th:text="${book.name}"></td>
+                <td th:text="${book.author}"></td>
+                <td th:text="${book.coverPhoto}"></td>
+                <td th:text="${book.price}"></td>
+                <td th:text="${book.bookType.name}"></td>
+                <td th:text="${book.press.name}"></td>
+                <div th:switch="${book.status}">
+                    <td th:case="1">上架</td>
+                    <td th:case="2">下架</td>
+                </div>
+                <td th:text="${book.addTime}"></td>
+                <div th:switch="${book.status}">
+                    <td th:case="1"><a th:href="@{/book/down(id=${book.id})}">下架</a></td>
+                    <td th:case="2"><a th:href="@{/book/up(id=${book.id})}">上架</a></td>
+                </div>
+            </tr>
+        </tbody>
+    </table>
+    <a th:href="@{/book(page=${previousPage},size=${size})}"
+        th:text="previous"></a>
+    <div th:text="${currentPage}"></div>
+    <a th:href="@{/book(page=${nextPage},size=${size})}"
+        th:text="next"></a>
+</body>
+</html>

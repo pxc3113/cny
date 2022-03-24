@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.app7.dao.VIIClassDao" >
+  <resultMap id="BaseResultMap" type="com.example.app7.model.VIIClass" >
+    <id column="cid" property="id" jdbcType="BIGINT" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="credit" property="credit" jdbcType="DOUBLE" />
+    <association property="electricMeter">
+      <id column="eid" property="id"/>
+      <result column="electricity" property="electricity"/>
+      <result column="status" property="status"/>
+    </association>
+  </resultMap>
+  <sql id="whereSql">
+    <if test="viiClassDto.name!=null">
+    and name like '%${viiClassDto.name}%' 
+    </if>
+    <if test="viiClassDto.electricityFrom!='' and viiClassDto.electricityTo!='' and viiClassDto.electricityFrom!=null and viiClassDto.electricityTo!=null">
+    and (electricity between #{viiClassDto.electricityFrom} and #{viiClassDto.electricityTo}) 
+    </if>
+  </sql>
+  <select id="get" resultMap="BaseResultMap">
+    select * from vii_class c left join electric_meter e on c.eid = e.eid where 1=1 <include refid="whereSql"></include>
+    limit #{page},#{size};
+  </select>
+  <select id="getById" resultMap="BaseResultMap">
+    select * from vii_class c left join electric_meter e on c.eid = e.eid where cid=#{id};
+  </select>
+  <update id="charge">
+    update vii_class set credit = credit - #{cost} where cid=#{cid};
+  </update>
+</mapper>

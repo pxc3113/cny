@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table border="1">
+        <thead>
+            <tr>
+                <td>id</td>
+                <td>帐号</td>
+                <td>密码</td>
+                <td>等级</td>
+                <td>数据添加时间</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="user:${UserList}">
+                <td th:text="${user.id}"></td>
+                <td th:text="${user.name}"></td>
+                <td th:text="${user.password}"></td>
+                <td th:text="${user.userType.name}"></td>
+                <td th:text="${user.date}"></td>
+            </tr>
+        </tbody>
+    </table>
+    <a th:href="@{/user(page=${previousPage},size=${size})}"
+        th:text="previous"></a>
+    <div th:text="${currentPage}"></div>
+    <a th:href="@{/user(page=${nextPage},size=${size})}"
+        th:text="next"></a>
+</body>
+</html>

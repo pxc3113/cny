@@ -1,0 +1,42 @@
+
+application {
+  config {
+    baseName myApp,
+    applicationType monolith,
+    packageName com.myapp,
+    authenticationType jwt,
+    prodDatabaseType mysql,
+    clientFramework angular
+  }
+  entities *
+}
+
+entity User {
+	id Integer,
+    userName String,
+    sex Integer,
+    account String,
+    password String,
+    headImg String,
+    registrationDate Date,
+    deptId Integer,
+    email String
+}
+
+entity Dept {
+	id Integer,
+    name String,
+    show String
+}
+
+entity Tree{
+	id Integer,
+    text String,
+    url String,
+    pid Integer
+}
+
+relationship OneToMany {
+  User to Dept
+}
+    

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE generatorConfiguration  
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"  
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd"> 
+<generatorConfiguration>
+    <context id="app4">
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://localhost:3306/CNY"
+            userId="root" password="root" />
+        <javaModelGenerator targetPackage="com.ytc.app4.model"
+            targetProject="/home/l/Documents/Tencent Files/1709055990/FileRecv/过年作业/app4/src/main/java">
+            <property name="enableSubPackages" value="true" />
+            <!--  如果true，MBG会根据catalog和schema来生成子包。如果false就会直接用targetPackage属性。默认为false  -->
+            <property name="trimStrings" value="true" />
+            <!--  当数据库字段使用CHAR时，建议在<javaModelGenerator>中设  -->
+        </javaModelGenerator>
+        <table tableName="v_book" enableCountByExample="false" enableUpdateByExample="false"
+            enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
+        <table tableName="v_book_type" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+            enableSelectByExample="false" selectByExampleQueryId="false" />
+        <table tableName="press" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+            enableSelectByExample="false" selectByExampleQueryId="false" />
+    </context>
+</generatorConfiguration>

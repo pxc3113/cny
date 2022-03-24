@@ -1,0 +1,10 @@
+1.javaSE重点面试概念
+2.javaEE重点面试概念
+3.框架面试重点概念
+   spring
+   springmvc
+   mybatis
+   springboot
+   数据库篇
+   redis
+注意：回来要听写。必须背过

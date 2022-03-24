@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE generatorConfiguration  
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"  
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd"> 
+<generatorConfiguration>
+    <context id="app6">
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://localhost:3306/CNY"
+            userId="root" password="root" />
+        <javaModelGenerator targetPackage="com.ytc.app6.model"
+            targetProject="/home/l/Documents/Tencent Files/1709055990/FileRecv/过年作业/app6/src/main/java">
+            <property name="enableSubPackages" value="true" />
+            <!--  如果true，MBG会根据catalog和schema来生成子包。如果false就会直接用targetPackage属性。默认为false  -->
+            <property name="trimStrings" value="true" />
+            <!--  当数据库字段使用CHAR时，建议在<javaModelGenerator>中设  -->
+        </javaModelGenerator>
+        <!-- 生成Mapper文件  -->
+        <sqlMapGenerator targetPackage="mapping"
+            targetProject="/home/l/Documents/Tencent Files/1709055990/FileRecv/过年作业/app6/src/main/mapping" />
+        <!-- 生成Dao文件 可以配置 type="XMLMAPPER"生成xml的dao实现  -->
+        <javaClientGenerator targetPackage="repository"
+            targetProject="/home/l/Documents/Tencent Files/1709055990/FileRecv/过年作业/app6/src/main/java/"
+            type="XMLMAPPER" />
+        <table tableName="luck_history" enableCountByExample="false" enableUpdateByExample="false"
+            enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false" />
+        <table tableName="prize" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
+            enableSelectByExample="false" selectByExampleQueryId="false" />
+    </context>
+</generatorConfiguration>

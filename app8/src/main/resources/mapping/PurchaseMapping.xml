@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.app8.dao.PurchaseDao" >
+  <resultMap id="BaseResultMap" type="com.example.app8.model.Purchase" >
+    <id column="pid" property="id" jdbcType="BIGINT" />
+    <result column="grade_case" property="gradeCase" jdbcType="VARCHAR" />
+    <result column="order_date" property="orderDate" jdbcType="DATE" />
+    <result column="order_id" property="orderId" jdbcType="BIGINT" />
+    <result column="provider" property="provider" jdbcType="VARCHAR" />
+    <result column="purchase_amount" property="purchaseAmount" jdbcType="DOUBLE" />
+    <result column="purchase_date" property="purchaseDate" jdbcType="DATE" />
+    <association property="status" javaType="com.example.app8.model.Status">
+      <id column="sid" property="id"/>
+      <result column="name" property="name"/>
+    </association>
+  </resultMap>
+  <select id="pin">
+    update purchase_pinned set id = #{id,jdbcType=BIGINT}
+  </select>
+  <sql id="whereSql">
+    <if test="purchaseDto.statusId!=null">
+    and sid like '%${purchaseDto.statusId}%' 
+    </if>
+    <if test="purchaseDto.purchaseDateFrom!='' and purchaseDto.purchaseDateTo!='' and purchaseDto.purchaseDateFrom!=null and purchaseDto.purchaseDateTo!=null">
+    and (purchase_date between #{purchaseDto.purchaseDateFrom} and #{purchaseDto.purchaseDateTo}) 
+    </if>
+    <if test="purchaseDto.provider!=''">
+    and provider like '%${purchaseDto.provider}%' 
+    </if>
+  </sql>
+  <select id="get" resultMap="BaseResultMap">
+    select * from purchase p left join status s on p.status_id = s.sid where 1=1 <include refid="whereSql"></include>
+    order by pid in (select * from purchase_pinned) desc, order_date desc limit #{page},#{size};
+  </select>
+  <select id="getById" resultMap="BaseResultMap" parameterType="java.lang.Long">
+    select *
+    from purchase p left join status s on p.status_id = s.sid 
+    where pid=#{id,jdbcType=BIGINT}
+  </select>
+  <update id="update" parameterType="com.example.app8.model.Purchase" >
+    update purchase
+    <set >
+      <if test="purchaseDate != null">
+        purchase_date = #{purchaseDate,jdbcType=DATE},
+      </if>
+      <if test="provider!=null">
+        provider = #{provider,jdbcType=VARCHAR},
+      </if>
+      <if test="purchaseAmount!=null">
+        purchase_amount = #{purchaseAmount,jdbcType=DOUBLE},
+      </if>
+      <if test="gradeCase!=null">
+        purchase_date = #{purchaseDate,jdbcType=DATE},
+      </if>
+      <if test="status.id!=null">
+        status_id = #{status.id,jdbcType=BIGINT},
+      </if>
+    </set>
+    where pid = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

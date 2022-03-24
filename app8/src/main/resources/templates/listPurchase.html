@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <table border="1">
+        <thead>
+            <tr>
+                <td>id</td>
+                <td>采购日期</td>
+                <td>供应商</td>
+                <td>采购总额</td>
+                <td>登记情况</td>
+                <td>状态</td>
+                <td>操作</td>
+            </tr>
+        </thead>
+        <tbody>
+            <form method="post" th:action="@{/purchase/}" th:object="${purchaseDto}">
+                状态：<select th:field = "*{statusId}">
+                    <option value = "1">审核中</option>
+                    <option value = "2">审核通过</option>
+                </select>
+                采购日期：<input type="date" th:field="*{purchaseDateFrom}">--<input type="date" th:field="*{purchaseDateTo}">
+                供应商：<input type="text" th:field = "*{provider}">
+                <input type="submit" value="查询">
+            </form>
+            <tr th:each="purchase:${purchaseList}">
+                <td th:text="${purchase.id}"></td>
+                <td th:text="${purchase.purchaseDate}"></td>
+                <td th:text="${purchase.provider}"></td>
+                <td th:text="${purchase.purchaseAmount}"></td>
+                <td th:text="${purchase.gradeCase}"></td>
+                <td th:text="${purchase.status.name}"></td>
+                <td>
+                    <a th:href="@{/purchase/toUpdate(id=${purchase.id})}">修改</a>
+                    <a th:href="@{'/purchase/pin/'+${purchase.id}}">置顶</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <a th:href="@{/purchase(page=${previousPage},size=${size})}"
+        th:text="previous"></a>
+    <div th:text="${currentPage}"></div>
+    <a th:href="@{/purchase(page=${nextPage},size=${size})}"
+        th:text="next"></a>
+</body>
+</html>
